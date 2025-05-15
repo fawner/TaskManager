@@ -20,8 +20,11 @@ import java.util.stream.Collectors;
 @Service
 public class TaskService {
 
-    @Autowired
-    private TaskRepository taskRepository;
+    private final TaskRepository taskRepository;
+
+    public TaskService(TaskRepository taskRepository) {
+        this.taskRepository = taskRepository;
+    }
 
     private Task convertToEntity(TaskRequestDTO taskRequestDTO) {
         Task task = new Task();

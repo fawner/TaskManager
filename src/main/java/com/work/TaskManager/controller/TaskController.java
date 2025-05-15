@@ -14,8 +14,11 @@ import java.util.List;
 @RequestMapping("/tasks")
 public class TaskController {
 
-    @Autowired
-    private TaskService taskService;
+    private final TaskService taskService;
+
+    public TaskController(TaskService taskService) {
+        this.taskService = taskService;
+    }
 
     @PostMapping()
     public TaskResponseDTO createTask(@RequestBody TaskRequestDTO taskRequest){
@@ -34,9 +37,8 @@ public class TaskController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
+    public void deleteTask(@PathVariable Long id) {
         taskService.deleteTask(id);
-        return ResponseEntity.noContent().build();
     }
 
     @GetMapping()
